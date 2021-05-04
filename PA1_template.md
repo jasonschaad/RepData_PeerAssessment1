@@ -16,13 +16,11 @@ activity <- read.csv("activity.csv")
 1. Process/transform the data (if necessary) into a format suitable for your analysis
 
 ```r
-totalSteps<-aggregate(steps~date,data=activity,sum,na.rm=TRUE)
+totalSteps<-aggregate(steps~date,data=activity,sum,na.rm = TRUE)
 ```
-
 
 ## What is mean total number of steps taken per day?
 1. Make a histogram of the total number of steps taken each day
-
 
 ```r
 hist(totalSteps$steps)
@@ -50,14 +48,29 @@ median(totalSteps$steps)
 ## [1] 10765
 ```
 
-* The **mean** total number of steps taken per day is 
-    1.0766189\times 10^{4} steps.
-* The **median** total number of steps taken per day is 
-    10765 steps.
-
-
 ## What is the average daily activity pattern?
 
+* Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
+
+
+```r
+stepsInterval<-aggregate(steps~interval,data=activity,mean,na.rm=TRUE)
+plot(steps~interval,data=stepsInterval,type="l")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
+* Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps? 
+
+```r
+stepsInterval[which.max(stepsInterval$steps),]$interval
+```
+
+```
+## [1] 835
+```
+
+It is the **835th** interval.
 
 
 ## Imputing missing values
